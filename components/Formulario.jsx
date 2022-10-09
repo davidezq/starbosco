@@ -4,6 +4,8 @@ import { TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-nativ
 
 export default function Formulario({resumen, setResumen}) {
 
+    const PORCENTAJE = 100;
+
     const [selectedSize, setSelectedSize] = useState("8 onz,1");
     const [selectedCafe, setSelectedCafe] = useState("mocha,2");
     const [selectedPago, setSelectedPago] = useState("efectivo,15%");
@@ -19,7 +21,7 @@ export default function Formulario({resumen, setResumen}) {
         const [tipo_cafe,precioCafe] = selectedCafe.split(',')
         const [tipo_pago,descuento] = selectedPago.split(',')
         const totalSinDescuento = ( Number( precioTamaño ) + Number( precioCafe ) ) * Number(cantidad_solicitada)
-        const descuentoCalculado = totalSinDescuento * ( Number( descuento.slice(0,-1) ) / 100 )
+        const descuentoCalculado = totalSinDescuento * ( Number( descuento.slice(0,-1) ) / PORCENTAJE )
         const total_pagar = (totalSinDescuento - descuentoCalculado).toFixed(2)
 
         const nuevoResumen = {
@@ -61,7 +63,7 @@ export default function Formulario({resumen, setResumen}) {
 
                 <Picker //Tipo del café
                     selectedValue={selectedCafe}
-                    onValueChange={(itemValue, itemIndex) =>{
+                    onValueChange={(itemValue) =>{
                         console.log(itemValue)
                         setSelectedCafe(itemValue)
         
@@ -80,7 +82,7 @@ export default function Formulario({resumen, setResumen}) {
 
                 <Picker //Tipo de pago
                     selectedValue={selectedPago}
-                    onValueChange={(itemValue, itemIndex) =>{
+                    onValueChange={(itemValue) =>{
                         console.log(itemValue)
                         setSelectedPago(itemValue)
         
