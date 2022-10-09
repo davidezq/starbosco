@@ -19,7 +19,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Title/>
-      <Formulario/>
+      <Formulario resumen={resumen} setResumen={setResumen}/>
       <View style={styles.grid}>
           <Text style={styles.colmn}>Cantidad solicitada:</Text>
           <Text style={styles.colmn}>{resumen.cantidad_solicitada}</Text>

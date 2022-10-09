@@ -2,16 +2,36 @@ import { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
 import { TextInput, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function Formulario() {
+export default function Formulario({resumen, setResumen}) {
 
-    const [selectedSize, setSelectedSize] = useState();
-    const [selectedCafe, setSelectedCafe] = useState();
-    const [selectedPago, setSelectedPago] = useState();
-    const [selectedCantidad, setSelectedCantidad] = useState();
-    
+    const [selectedSize, setSelectedSize] = useState("8 onz,1");
+    const [selectedCafe, setSelectedCafe] = useState("mocha,2");
+    const [selectedPago, setSelectedPago] = useState("efectivo,15%");
+    const [selectedCantidad, setSelectedCantidad] = useState(0);
+
     const guardarCantidad = (cantidad) => {
-        console.log(cantidad)
-        selectedCantidad(cantidad)
+        setSelectedCantidad(cantidad)
+    }
+
+    const handleCalcular = () =>{
+        const cantidad_solicitada = selectedCantidad
+        const [tamaño,precioTamaño] = selectedSize.split(',')
+        const [tipo_cafe,precioCafe] = selectedCafe.split(',')
+        const [tipo_pago,descuento] = selectedPago.split(',')
+        const totalSinDescuento = ( Number( precioTamaño ) + Number( precioCafe ) ) * Number(cantidad_solicitada)
+        const descuentoCalculado = totalSinDescuento * ( Number( descuento.slice(0,-1) ) / 100 )
+        const total_pagar = (totalSinDescuento - descuentoCalculado).toFixed(2)
+
+        const nuevoResumen = {
+            cantidad_solicitada,
+            tamaño,
+            tipo_cafe,
+            tipo_pago,
+            descuento, //en porcentaje
+            total_pagar
+        }
+
+        setResumen(nuevoResumen)
     }
 
     return (
@@ -28,9 +48,9 @@ export default function Formulario() {
                         setSelectedSize(itemValue)
         
                     }}>
-                    <Picker.Item label="short 8 onz - $1.00" value={{tamaño:"8 onz",precio:1}} />
-                    <Picker.Item label="tall 12 onz - $1.50" value={{tamaño:"12 onz",precio:1.5}} />
-                    <Picker.Item label="grande 14 onz - $2.00" value={{tamaño:"14 onz",precio:2.0}} />
+                    <Picker.Item label="short 8 onz - $1.00" value={"8 onz,1"} />
+                    <Picker.Item label="tall 12 onz - $1.50" value={"12 onz,1.50"} />
+                    <Picker.Item label="grande 14 onz - $2.00" value={"14 onz,2.00"} />
                 </Picker>
 
             </View>
@@ -46,10 +66,10 @@ export default function Formulario() {
                         setSelectedCafe(itemValue)
         
                     }}>
-                    <Picker.Item label="Mocha - $2.00" value={{tipo_cafe:"mocha",precio:2}}/>
-                    <Picker.Item label="Te chai - $2.50" value={{tipo_cafe:"Te chai",precio:2.50}}/>
-                    <Picker.Item label="Americano - $1.50" value={{tipo_cafe:"Americano",precio:1.50}}/>
-                    <Picker.Item label="Frapper - $3.00" value={{tipo_cafe:"Frapper",precio:3.00}}/>
+                    <Picker.Item label="Mocha - $2.00" value={"mocha,2"}/>
+                    <Picker.Item label="Te chai - $2.50" value={"Te chai,2.50"}/>
+                    <Picker.Item label="Americano - $1.50" value={"Americano,1.50"}/>
+                    <Picker.Item label="Frapper - $3.00" value={"Frapper,3.00"}/>
                 </Picker>
 
             </View>
@@ -65,8 +85,8 @@ export default function Formulario() {
                         setSelectedPago(itemValue)
         
                     }}>
-                    <Picker.Item label="efectivo" value="efectivo" />
-                    <Picker.Item label="tarjeta de crédito" value="crédito" />
+                    <Picker.Item label="efectivo" value="efectivo,15%" />
+                    <Picker.Item label="tarjeta de crédito" value="crédito,5%" />
                 </Picker>
 
             </View>
@@ -79,10 +99,16 @@ export default function Formulario() {
                         keyboardType='number-pad'
                         />
             </View>
+            {
+                selectedCantidad > 0 ? (
+                    <TouchableOpacity onPress={handleCalcular}>
+                        <Text>Calcular</Text>
+                    </TouchableOpacity>
+                ):(
+                    ""
+                )
 
-            <TouchableOpacity>
-                <Text>Calcular</Text>
-            </TouchableOpacity>
+            }
 
         </View>
     )
