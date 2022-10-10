@@ -31,9 +31,8 @@ export default function App() {
           <Text style={styles.colmn}>{resumen.tipo_pago}</Text>
           <Text style={styles.colmn}>Descuento %:</Text>
           <Text style={styles.colmn}>{resumen.descuento}</Text>
-          <Text style={styles.colmn}>Total a pagar:</Text>
-          <Text style={styles.colmn}>{resumen.total_pagar}</Text>
-          
+          <Text style={styles.colmn_resaltar}>Total a pagar:</Text>
+          <Text style={styles.colmn_resaltar}>{resumen.total_pagar}</Text> 
       </View>
     </View>
   );
@@ -46,6 +45,8 @@ const styles = StyleSheet.create({
     paddingHorizontal:"2.5%"
   },
   grid:{
+    marginTop:20,
+    marginHorizontal:'10%',
     width:500,
     flexWrap:'wrap',
     flexDirection:'row'
@@ -54,5 +55,12 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     flexGrow:1,
     flexBasis:"50%",
- }
+  },
+  colmn_resaltar:{
+    flexDirection:'row',
+    flexGrow:1,
+    flexBasis:"50%",
+    fontWeight:'800'
+  }
+
 });

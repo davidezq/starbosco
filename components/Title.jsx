@@ -1,10 +1,16 @@
-import { Text } from "react-native"
+import { Text, StyleSheet } from "react-native"
 
 
 export default function Title() {
     
   return (
-    <Text> StarBosco App </Text> 
+    <Text style={styles.center}> StarBosco App </Text> 
   )
 
 }
+
+const styles = StyleSheet.create({
+  center:{
+    textAlign:'center'
+  }
+})

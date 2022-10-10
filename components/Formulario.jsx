@@ -41,9 +41,10 @@ export default function Formulario({resumen, setResumen}) {
 
             <View>
 
-                <Text>Tamaño del café</Text>
+                <Text style={styles.label}>Tamaño del café</Text>
 
                 <Picker //Tamaño del café
+                    style={styles.picker}
                     selectedValue={selectedSize}
                     onValueChange={(itemValue, itemIndex) =>{
                         console.log(itemValue)
@@ -59,14 +60,15 @@ export default function Formulario({resumen, setResumen}) {
 
             <View>
 
-                <Text>Tipo de café</Text>
+                <Text style={styles.label}>Tipo de café</Text>
 
                 <Picker //Tipo del café
+                    style={styles.picker}
                     selectedValue={selectedCafe}
                     onValueChange={(itemValue) =>{
                         console.log(itemValue)
                         setSelectedCafe(itemValue)
-        
+                        
                     }}>
                     <Picker.Item label="Mocha - $2.00" value={"mocha,2"}/>
                     <Picker.Item label="Te chai - $2.50" value={"Te chai,2.50"}/>
@@ -78,9 +80,10 @@ export default function Formulario({resumen, setResumen}) {
 
             <View>
 
-                <Text>Forma de pago</Text>
+                <Text style={styles.label}>Forma de pago</Text>
 
                 <Picker //Tipo de pago
+                    style={styles.picker}
                     selectedValue={selectedPago}
                     onValueChange={(itemValue) =>{
                         console.log(itemValue)
@@ -95,16 +98,17 @@ export default function Formulario({resumen, setResumen}) {
 
             <View>
 
-                <Text>Cantidad</Text>
+                <Text style={styles.label}>Cantidad</Text>
                     <TextInput
+                        style={styles.input}
                         onChangeText={guardarCantidad}
                         keyboardType='number-pad'
                         />
             </View>
             {
                 selectedCantidad > 0 ? (
-                    <TouchableOpacity onPress={handleCalcular}>
-                        <Text>Calcular</Text>
+                    <TouchableOpacity style={styles.btnCalcular} onPress={handleCalcular}>
+                        <Text style={styles.lblBtn}>Calcular</Text>
                     </TouchableOpacity>
                 ):(
                     ""
@@ -117,5 +121,39 @@ export default function Formulario({resumen, setResumen}) {
 }
 
 const styles = StyleSheet.create({
-    
+    form:{
+        backgroundColor:'green',
+        padding:20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
+    },
+    label:{
+        fontSize:20,
+        color:'white'
+    },
+    lblBtn:{
+        fontSize:20,
+        textAlign:'center',
+        color:"white"
+    },
+    btnCalcular:{
+        marginTop:20,
+        backgroundColor:'#1f3a31',
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
+        borderBottomLeftRadius:20,
+        borderBottomRightRadius:20
+    },
+    input:{
+        padding:5,
+        backgroundColor:'white',
+        color:'black'
+    },
+    picker:{
+        padding:5,
+        borderWidth:1,
+        borderColor:'white',
+        backgroundColor:'white',
+        marginBottom:20
+    }
 })
