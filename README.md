@@ -3,3 +3,6 @@ Funcionalidad de "total a pagar" de una aplicación de comida rápida ficticia. 
 
 ## demo
 Capturas del funcionamiento se encuentran dentro de la carpeta demo
+
+## Nota
+Se us
